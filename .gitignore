@@ -23,3 +23,5 @@ __pycache__/
 *.py[cod]
 *$py.class
 logs
+
+.project_launch.sh

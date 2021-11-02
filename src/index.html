@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--Using API as a quick way to test API calls-->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+    <title>API Tests</title>
+    <script>
+      // Test function for pinging the backend api
+      const pingApi = (apiPath, payload) => {
+        $.ajax({
+          url: `${apiPath}`,
+          type: "GET",
+          //data: JSON.stringify(payload),
+          cache: false,
+          dataType: "html",
+          success: (response) => {
+            console.log(
+              "Successful response returned : ",
+              JSON.parse(response)
+            );
+          },
+          error: (jqXHR, exception) => {
+            console.log("Failed response returned error :", jqXHR.responseText);
+          },
+        });
+      };
+
+      //PATH of the API method to ping
+      const APIpath = "http://localhost:5600/API/getPingMessage";
+      $(document).ready(pingApi(APIpath, "really"));
+    </script>
+  </head>
+  <body>
+    Hello Shweta Purushe
+  </body>
+</html>
