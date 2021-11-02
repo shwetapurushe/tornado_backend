@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!--Using API as a quick way to test API calls-->
+    <!--Using jQuery as a quick way to test API calls-->
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -13,12 +13,50 @@
 
     <title>API Tests</title>
     <script>
+      const getTodayDate = (offset = 0) => {
+        let d = new Date();
+        d.setDate(d.getDate() + offset);
+        let thisMonth = String(d.getMonth() + 1); // getMonth returns Jan=0, Feb=1 etc
+        var date1 = `${d.getFullYear()}-${("0" + thisMonth).slice(-2)}-${(
+          "0" + d.getDate()
+        ).slice(-2)}`;
+        return date1;
+      };
+
       // Test function for pinging the backend api
+      //   const pingApi = (apiPath, payload) => {
+      //     $.ajax({
+      //       url: `${apiPath}`,
+      //       type: "GET",
+      //       cache: false,
+      //       dataType: "html",
+      //       success: (response) => {
+      //         console.log(
+      //           "Successful response returned : ",
+      //           JSON.parse(response)
+      //         );
+      //       },
+      //       error: (jqXHR, exception) => {
+      //         console.log("Failed response returned error :", jqXHR.responseText);
+      //       },
+      //     });
+      //   };
+
+      /**
+      PATH of the API method to ping
+      GET
+      */
+      //const APIpath = "http://localhost:5600/API/getPingMessage";
+      //$(document).ready(pingApi(APIpath, ""));
+
+      /**
+       * POST
+       */
       const pingApi = (apiPath, payload) => {
         $.ajax({
           url: `${apiPath}`,
-          type: "GET",
-          //data: JSON.stringify(payload),
+          type: "POST",
+          data: JSON.stringify(payload),
           cache: false,
           dataType: "html",
           success: (response) => {
@@ -33,9 +71,13 @@
         });
       };
 
-      //PATH of the API method to ping
-      const APIpath = "http://localhost:5600/API/getPingMessage";
-      $(document).ready(pingApi(APIpath, "really"));
+      let payload = {
+        date1: getTodayDate(0),
+        categories: ["iudx", "safar", "ward"],
+      };
+
+      const APIpath = "http://localhost:5600/API/getLatestData";
+      $(document).ready(pingApi(APIpath, payload));
     </script>
   </head>
   <body>

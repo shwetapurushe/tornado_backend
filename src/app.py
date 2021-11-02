@@ -11,7 +11,7 @@ define("port", default=5600, help="run on the given port", type=int)
 
 class MainHandler(RequestHandler):
     def get(self):
-        self.write({'message': 'Welcome to my API!'})
+        self.write({'message': 'Welcome to my Website!'})
 
 
 class PingMessageHander(RequestHandler):
@@ -29,10 +29,10 @@ def main():
     # array of API routes, each route being a tuple (path, Handler)
 
     api_routes = [
-        url(r"/API/", MainHandler),
+        url(r"/", MainHandler),
         url(r"/API/getPingMessage", PingMessageHander),
-        url(r"/index.html", TemplateHandler)
-        #url(r"/API/getLatestData", api_v1.getLatestData)
+        url(r"/index.html", TemplateHandler),
+        url(r"/API/getLatestData", api_v1.getLatestData)
     ]
 
     application = Application(api_routes)
